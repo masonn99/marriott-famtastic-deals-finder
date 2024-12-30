@@ -1,0 +1,16 @@
+{
+  "name": "marriott-famtastic-deals-finder",
+  "version": "1.0.0",
+  "description": "Who doesn't love cheap hotel deals",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "playwright": "^1.49.1"
+  }
+}
