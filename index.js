@@ -10,7 +10,6 @@ async function main() {
         console.log('Launching browser...');
         browser = await chromium.launch({ 
             headless: false,  // Set to false so we can see what's happening
-            slowMo: 2000     // Slow down operations for visibility
         });
         
         // Create a new context and page
@@ -22,7 +21,7 @@ async function main() {
         await page.goto('https://www.travelagents.marriott.com/travelagents/hss/signin.mi');
         
         // Wait for 2 seconds to make sure everything loads
-        await page.waitForTimeout(2000);
+        await page.waitForTimeout(100);
         
         // Click the "Travel Advisor Sign In" button
         console.log('Clicking Travel Advisor Sign In...');
@@ -31,7 +30,7 @@ async function main() {
         // Wait for page load after click
         console.log('Waiting for page to load after click...');
         await page.waitForLoadState('networkidle');
-        await page.waitForTimeout(3000);
+        await page.waitForTimeout(100);
         
         // Debug: Log current URL
         console.log('Current URL:', await page.url());
@@ -43,7 +42,7 @@ async function main() {
         if (signInTab) {
             console.log('Found SIGN IN tab, clicking...');
             await signInTab.click();
-            await page.waitForTimeout(3000);
+            await page.waitForTimeout(100);
         }
 
         // Fill the form
@@ -55,15 +54,12 @@ async function main() {
         console.log('Clicking final SIGN IN button...');
         await page.click('button:has-text("SIGN IN"):not([role="tab"])');
         
-        // Wait for navigation or success indicator
-        console.log('Waiting for login to complete...');
-        await page.waitForNavigation({ timeout: 30000 });
         
         console.log('Login successful!');
+
+        await page.click('button:has-text("BOOK FAM-TASTIC")');
         
-        // Keep the browser open to see what happened
-        await page.waitForTimeout(30000);
-        
+  
     } catch (error) {
         console.error('An error occurred:', error);
         if (page) {
@@ -75,11 +71,7 @@ async function main() {
                 console.error('Could not capture debug info:', e);
             }
         }
-    } finally {
-        if (browser) {
-            await browser.close();
-        }
-    }
+    } 
 }
 
 main();
